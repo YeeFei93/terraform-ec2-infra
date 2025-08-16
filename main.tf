@@ -1,4 +1,5 @@
 resource "aws_instance" "public" {
+  count                       = 2
   ami                         = "ami-0de716d6197524dd9" # find the AMI ID of Amazon Linux 2023  
   instance_type               = "t2.micro"
   subnet_id                   = "subnet-04511d61169d5a8a4"  #Public Subnet ID, e.g. subnet-xxxxxxxxxxx
@@ -7,7 +8,7 @@ resource "aws_instance" "public" {
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
  
   tags = {
-    Name = "yeefei-ec2"    #Prefix your own name, e.g. jazeel-ec2
+    Name = "yeefei-ec2-${count.index + 1}"    #Prefix your own name, e.g. jazeel-ec2
   }
 }
 
